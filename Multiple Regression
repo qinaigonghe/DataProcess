@@ -1,0 +1,44 @@
+```python
+#coding=utf-8
+  # @Author: lihao
+  # @Time: 2019-09-09 10:11
+  # @Abstract：多元线性回归(Multiple Regression)算法  含类别变量
+  from numpy import genfromtxt
+  import numpy as np
+  from sklearn import linear_model
+  datapath=r"/home/lihao/Desktop/data_controller3.csv" #ctrl+l可以查看文件路径
+  #从文本文件中提取数据并转为numpy Array格式
+  deliveryData = genfromtxt(datapath,delimiter=',')
+  #deliveryData = [[ 0  ,1 , 2 , 3 , 4],
+  # [ 5 , 6 , 7,  8 , 1.65],
+  # [10 ,11 ,12 ,13 ,2.85],
+  # [15, 16 ,17 ,18 ,4],
+  # [20 ,21, 22 ,23, 5.2]]
+
+  #deliveryData=np.arange(864).reshape(3,288)
+  #deliveryData=np.array(deliveryData)
+  #print (data)
+  print(deliveryData)
+  # 读取自变量X1...x5
+  x= deliveryData[:,0:-3]    
+  # 读取因变量    
+  y = deliveryData[:,-1]
+  print ("x:",x)    
+  print ("y:",y)
+  # 调用线性回归模型    
+  lr = linear_model.LinearRegression()    
+  # 装配数据    
+  lr.fit(x, y)   
+  print (lr) 
+  print("coefficients:")   
+  print (lr.coef_)
+  print("intercept:")
+  print (lr.intercept_)
+  #预测
+  xPredict = deliveryData[-20:,0:-3]   
+  yPredict = lr.predict(xPredict)    
+  yreally=deliveryData[-20:,-1]    
+  print("predict:")    
+  print(yPredict)
+  print(yreally)
+```
