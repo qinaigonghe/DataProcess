@@ -1,0 +1,27 @@
+# --** coding="UTF-8" **--
+# 
+# @author:Lihao  
+# @time:2019-09-15
+# @Abstract:正则处理文件前缀
+#D:\xunleixiazai\ 下有一系列文件   
+import sys
+import os
+import re
+
+#fileList为数组，每个元素为文件名
+fileList = os.listdir(r"D:\xunleixiazai")
+# 得到进程当前工作目录
+currentpath = os.getcwd()
+# 将当前工作目录修改为待修改文件夹的位置
+os.chdir(r"D:\xunleixiazai")
+# 遍历文件夹中所有文件
+for fileName in fileList:
+#分割，reName为数组，按第一个元素分割
+    reName=re.split('2017',fileName)
+#拼接名字
+    reName[1]='2017'+reName[1]
+#修改名字
+    os.rename(fileName,reName[1])
+#更改回去进程工作目录
+os.chdir(currentpath)
+
