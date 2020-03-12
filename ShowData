@@ -1,0 +1,47 @@
+import matplotlib.pyplot as plt
+import os
+
+def chuli(s):
+    s=s[0:-2]
+    if s[0]=='-':
+        s=s[1:]
+        return float(s)*-1
+    return float(s)
+# 得到进程当前工作目录
+currentpath = os.getcwd()
+# 将当前工作目录修改为待修改文件夹的位置
+os.chdir(r"C:\Users\qinai\Desktop\论文_v2")
+
+file_name = "show_data1.txt"
+dataset_best = []
+dataset_worst = []
+dataset_mean = []
+
+file = open(file_name, mode='r')
+for line in file:
+    line = line.split()
+    dataset_mean.append(chuli(line[3]))
+    dataset_worst.append(chuli(line[4]))
+    dataset_best.append(chuli(line[5]))
+file.close()
+
+
+#x轴的值  
+input_values=[ i for i in range(1,501)]
+#y轴的值
+squares1 =[1,4,9,16,25]
+squares2=[1,4,11,16,25]
+#执行生成图表的方法 
+plt.plot(input_values,dataset_best,linewidth=1, label='best performer in population')
+plt.plot(input_values,dataset_worst,linewidth=1, label='worst performer in population')
+plt.plot(input_values,dataset_mean,linewidth=1, label='population mean')
+plt.legend(('best performer in population', 'worst performer in population', 'population mean'))
+#设置标题 
+plt.title("CarRacing-v0" ,fontsize=24)
+#设置x轴的描述 
+plt.xlabel("generation",fontsize=14)
+#设置y的描述
+plt.ylabel("average cululative reward",fontsize=14)
+plt.tick_params(axis='both',labelsize=14)
+#生成的图标显示
+plt.show()
